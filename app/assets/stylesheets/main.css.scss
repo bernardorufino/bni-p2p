@@ -1,0 +1,20 @@
+// ATTENTION! Possible problem: if, for some reason unknown, you feel
+// rules are not being applied in some .scss file, it has to do with // comments
+// AND CR (Carriege Return) option in text editor, set it to LF, and should be ok. *weird*
+
+// See the following links and files for variables and mixins available:
+//   http://twitter.github.com/bootstrap/customize.html#variables
+//   RUBY_DIR/gems/bootstrap-sass-X/vendor/assets/stylesheets/bootstrap/_variables.scss
+//   RUBY_DIR/gems/bootstrap-sass-X/vendor/assets/stylesheets/bootstrap/_mixins.scss
+//
+// Put your SASS variables used by Bootstrap below
+
+// $baseFontFamily: ;   // Defaults to "Helvetica Neue", Helvetica, Arial, sans-serif
+// $bodyBackground: ;   // Defaults to #fff
+// $textColor: ;        // Defaults to #333
+// ...
+
+@import "bootstrap";
+// @import "bootstrap-responsive";
+
+// Your styles here :)
