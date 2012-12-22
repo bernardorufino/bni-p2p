@@ -1,1 +1,1 @@
-# Skeleton to be used in new projects```bashgit clone git://github.com/bernardorufino/rails-app-skeleton.git ProjectNamecd ProjectNamerm -R -f .gitruby rename.rb ProjectNamebundle installgit init```edit this README.md, and then run```bashbundle exec rspec spec```to ensure everything is ok
+# BNI Peer to peer lending
