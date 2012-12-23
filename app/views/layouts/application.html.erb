@@ -2,24 +2,67 @@
 <html>
 <head>
   <title><%= title %></title>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+  <%= csrf_meta_tags %>  
 </head>
 <body>
 
 <header>
+  <div id="header">
+    <h1>BNI P2P</h1>
+    <h2>Emprestar ficou mais facil</h2>
+    
+    <%= nav(id: 'menu', class: 'unstyled', nav: false) do |m| %>
+      <%= m.link_to "Home", root_path %>
+      <%= m.link_to "Emprestar", page_path(:lend) %>
+      <%= m.link_to "Comunidade", page_path(:community) %>
+    <% end %>
+    
+    <% if true %>
+    
+      <ul id="user-bar">
+        <li id="user-name"><%= icon_text 'g_user', "Bernardo Rufino" %></li>
+        <li><%= link_to icon_text('g_book', "Portfolio"), '#portfolio' %></li>
+        <li><%= link_to icon_text('g_wrench', "Configuracoes"), '#settings' %></li>
+        <li class="controls"><div>
+          <%= button_to icon_text('g_white_off', "Sair"), '#logout', class: 'btn-danger' %>
+        </div></li>
+      </ul>
+      
+    
+    <% else %>
+        
+        <%= simple_form_for(:user, :html => {class: 'form-inline'}) do |f| %>
+          <%= f.input_field :email, placeholder: "Email", class: 'input-small' %>
+          <%= f.input_field :password, placeholder: "Senha", class: 'input-small' %>
+          <%= button :primary, "Entrar", type: 'submit' %>
+          <span>ou</span>
+          <%= button_to "Cadastrar", "#cadastrar" %>
+        <% end %>
+        
+    <% end %>
+  </div>
 </header>
 
-<div id="content">
-  
-  <%= flash_messages %>
-  
-  <%= yield %>
+<div id="wrapper">
+  <div id="content">
+    
+    <%= flash_messages %>
+    
+    <%= yield %>
 
+  </div>
 </div>
 
 <footer>
+  <p>
+    <%= link_to "Home", root_path %> |
+    <%= link_to "Contato", page_path(:contact) %> |
+    <%= link_to "Membros", page_path(:contact) %> |
+    <%= link_to "Ajuda", page_path(:contact) %>
+  </p>
 </footer>
 
 </body>

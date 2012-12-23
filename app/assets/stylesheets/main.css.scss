@@ -1,20 +1,151 @@
-// ATTENTION! Possible problem: if, for some reason unknown, you feel
-// rules are not being applied in some .scss file, it has to do with // comments
-// AND CR (Carriege Return) option in text editor, set it to LF, and should be ok. *weird*
+$main-color: #97BF0D;
+$middle-color: #719113;
+$dark-color: #5C760A; 
+$page-bg-color: #FFFFFF;
+$text-color: #333333;
 
-// See the following links and files for variables and mixins available:
-//   http://twitter.github.com/bootstrap/customize.html#variables
-//   RUBY_DIR/gems/bootstrap-sass-X/vendor/assets/stylesheets/bootstrap/_variables.scss
-//   RUBY_DIR/gems/bootstrap-sass-X/vendor/assets/stylesheets/bootstrap/_mixins.scss
-//
-// Put your SASS variables used by Bootstrap below
-
-// $baseFontFamily: ;   // Defaults to "Helvetica Neue", Helvetica, Arial, sans-serif
-// $bodyBackground: ;   // Defaults to #fff
-// $textColor: ;        // Defaults to #333
-// ...
-
+// Bootstrap
+$bodyBackground: $middle-color;
+$textColor: $text-color;
+$baseFontSize: 14px;
 @import "bootstrap";
-// @import "bootstrap-responsive";
 
-// Your styles here :)
+// Helpers
+
+$links: "a, a:link, a:visited, a:hover, a:active";
+
+@mixin page-layout {
+  width: 960px;
+  margin: 0 auto;
+}
+
+@mixin shadow($inset: '') {
+  @include box-shadow(#{$inset} 0 0 6px 1px transparentize(#000, 0.70));
+}
+
+$header-height: 42px;
+header {
+  background-color: $main-color;
+  height: $header-height;
+  width: 100%;
+  @include shadow;
+  #header {
+    @include box-sizing(border-box);
+    background-color: $main-color;
+    background-image: image-url("header-logo.png");
+    background-repeat: no-repeat;
+    background-position: 5px top;
+    height: $header-height;
+    // Image width + background position left + extra space
+    padding-left: 117px + 5px + 10px;
+    @include page-layout;
+    @include shadow;
+    h1, h2 {
+      // Image-replacement with #header background
+      display: none;
+    }
+    // For shadows and form (position absolute)
+    position: relative;
+    z-index: 0;
+  }
+}
+#wrapper {
+  @include page-layout;
+  @include shadow;
+  &, #content {
+    @include box-sizing(border-box);
+    background-color: $page-bg-color;
+  }
+  #content {
+    padding: 10px;
+    // For shadows
+    position: relative;
+    z-index: 1;
+  }  
+}
+footer {
+  @include page-layout;
+  background-image: image-url("footer-logo.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  margin-top: 15px;
+  padding-top: 105px + 10px;
+  min-height: 125px;
+  text-align: center;
+  font-size: 13px;
+  &, #{$links} {
+    color: darken($dark-color, 5%);
+  }
+}
+
+#menu {
+  display: table-row;
+  &, li, li > a {
+    @include box-sizing(border-box);
+    height: $header-height;
+  }
+  li {
+    cursor: default;
+    $side-padding: 10px;
+    padding: 0 $side-padding;
+    display: table-cell;
+    vertical-align: middle;
+    &, & > a {
+      font-weight: bold;
+      color: $dark-color;
+    }
+    & > a {
+      display: inline-block;
+      margin: 0 (-$side-padding);
+      padding: 0 $side-padding;
+      line-height: $header-height;
+    }
+    & > a:hover {
+      text-decoration: none;
+      border-bottom: 4px solid $dark-color;
+    }
+    &.active {
+      @include shadow(inset);
+      background-color: $dark-color;
+      &, & > #{$links} {
+        color: $main-color;
+        border: none;
+      }
+    }
+  }
+}
+
+header {
+  form, #user-bar {
+    @include box-sizing(border-box);
+    position: absolute; // header is position relative ;)
+    right: 10px;
+    top: 0;
+    margin: 0;
+    height: $header-height;
+  }
+  form {
+    padding-top: 6px;
+    input:focus {
+      @extend .input-medium;
+    }
+    #{$links} {
+      &:not(.btn) {
+        color: $dark-color;
+      }
+    }
+    & > div, & > span {
+      font-size: 13px;
+      display: inline-block;
+      position: relative;
+      top: 1px;
+    }
+  }
+  #user-bar {  
+    // Isso e foda demais! Funcionou!
+    @extend #menu;
+    .controls {
+      font-weight: normal;
+    }    
+  }
+}

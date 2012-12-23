@@ -5,7 +5,7 @@ gem 'rails', '3.2.9'
 gem 'jquery-rails'
 gem 'simple_form', '~> 2.0.4'
 gem 'bcrypt-ruby', '~> 3.0.0'
-gem 'bootstrap-sass', '~> 2.2.1.1'
+gem 'bootstrap-sass', '~> 2.2.2.0'
 
 group :development, :test do 
   gem 'rspec-rails', '~> 2.0'

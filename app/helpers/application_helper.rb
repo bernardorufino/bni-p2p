@@ -1,5 +1,5 @@
 module ApplicationHelper
-  TITLE = "Base Title";
+  TITLE = "BNI P2P";
 
   def title
     (content_for?(:title)) ? "#{TITLE} | #{content_for(:title)}" : TITLE;
@@ -14,12 +14,23 @@ module ApplicationHelper
     end
   end
   
-  def icon(name, options={})
-    w, h = *{
-      /^s_/ => [16, 16],
-      /^g_/ => [24, 24]
-    }.detect{|pattern, size| name =~ pattern }.last
-    image_tag("icons/#{name}.png", {width: w, height: h, class: "icon"}.merge(options));
+  def icon(name, attrs={})
+    if name =~ /^g_(white_)?(.+)$/
+      # Cannot invert orders, 2 lines below, because #gsub sets new $1
+      classes = ($1) ? ['icon-white'] : [];
+      classes << "icon-#{$2.gsub('_', '-')}";
+      content_tag(:i, "", insert_classes(attrs, classes));
+    else
+      image_tag("icons/#{name}.png", insert_classes(attrs, 'icon'));
+    end
+  end
+  
+  def icon_text(icon, text, attrs={})
+    "#{icon(icon, attrs)} #{text}".html_safe;
+  end
+  
+  def text_icon(text, icon, attrs={})
+    "#{text} #{icon(icon, attrs)}".html_safe;
   end
   
   # button(type, content(, options))
@@ -49,8 +60,9 @@ module ApplicationHelper
     proxy = NavProxy.new(self, itens_properties, &method(:current_page?));
     tag = options.delete(:tag) || 'ul';
     content = (block_given?) ? capture(proxy, &block) : "";
-    options = insert_classes(options, 'nav');
+    nav = (options.key?(:nav)) ? options.delete(:nav) : true;
+    options = insert_classes(options, 'nav') if nav;
     content_tag(tag, content, options);
-  end
+  end    
   
 end
