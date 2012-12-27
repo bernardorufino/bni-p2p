@@ -9,6 +9,7 @@ module ApplicationHelper
   # type = :success, :info, :alert or :error
   def flash_messages
     flash.to_a.inject("".html_safe) do |code, (type, message)|
+      type = :success if type.to_sym == :notice;
       html_class = (type.to_sym == :alert) ? "alert" : "alert alert-#{type}";
       code + content_tag(:p, message, class: html_class);
     end

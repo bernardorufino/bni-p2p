@@ -11,3 +11,4 @@ end
 def icon_path(icon)
   "/assets/icons/#{icon}"
 end
+

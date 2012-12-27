@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Hash do
 
   describe "html_merge" do

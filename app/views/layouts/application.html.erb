@@ -20,26 +20,26 @@
       <%= m.link_to "Comunidade", page_path(:community) %>
     <% end %>
     
-    <% if true %>
+    <% if user_signed_in? %>
     
       <ul id="user-bar">
-        <li id="user-name"><%= icon_text 'g_user', "Bernardo Rufino" %></li>
+        <li id="user-name"><%= icon_text 'g_user', current_user.name || "Unnamed" %></li>
         <li><%= link_to icon_text('g_book', "Portfolio"), '#portfolio' %></li>
         <li><%= link_to icon_text('g_wrench', "Configuracoes"), '#settings' %></li>
         <li class="controls"><div>
-          <%= button_to icon_text('g_white_off', "Sair"), '#logout', class: 'btn-danger' %>
+          <%= button_to icon_text('g_white_off', "Sair"), destroy_user_session_path, class: 'btn-danger', method: :delete %>
         </div></li>
       </ul>
       
     
     <% else %>
         
-        <%= simple_form_for(:user, :html => {class: 'form-inline'}) do |f| %>
+        <%= simple_form_for(:user, url: user_session_path,  :html => {class: 'form-inline'}) do |f| %>
           <%= f.input_field :email, placeholder: "Email", class: 'input-small' %>
           <%= f.input_field :password, placeholder: "Senha", class: 'input-small' %>
+          <%= f.hidden_field :remember_me, value: 1 %> 
           <%= button :primary, "Entrar", type: 'submit' %>
-          <span>ou</span>
-          <%= button_to "Cadastrar", "#cadastrar" %>
+          <%= button_to "Cadastrar", new_user_registration_path %>
         <% end %>
         
     <% end %>
@@ -52,7 +52,9 @@
     <%= flash_messages %>
     
     <%= yield %>
-
+    
+    <%# debug params if Rails.env.development? %>
+  
   </div>
 </div>
 

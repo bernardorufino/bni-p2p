@@ -3,23 +3,52 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.9'
 
 gem 'jquery-rails'
-gem 'simple_form', '~> 2.0.4'
+gem 'simple_form', '>= 2.0.4'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'bootstrap-sass', '~> 2.2.2.0'
+gem 'devise', '~> 2.1.2'
 
-group :development, :test do 
-  gem 'rspec-rails', '~> 2.0'
+group :development, :test do
+  gem 'sqlite3'
+  
+  # rspec-rails and factory_girl_rails needs to be in development
+  # group also so that Rails generators work
+  gem 'rspec-rails', '>= 2.0'
+  gem 'factory_girl_rails', '~> 4.0'
   
 end
 
 group :development do
-  gem 'sqlite3'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  
+  # If you want full featured Guard, also uncomment your system 
+  # dependent gems in test group
+  # Check https://github.com/guard/guard for installation
+  # Run 'guard init rspec' and edit Guardfile
+  # gem 'guard-rspec'
   
 end
 
 group :test do 
-  gem 'factory_girl_rails', '~> 4.1.0'
-  gem 'capybara', '~> 2.0.1'
+  gem 'shoulda-matchers', '>= 1.4.2'
+  gem 'capybara', '>= 2.0.1'
+  
+  # Guard on MAC OSX
+  # gem 'rb-fsevent', require: true
+  # gem 'growl'
+  
+  # Guard on Linux
+  # gem 'rb-inotify'
+  # gem 'libnotify'
+  
+  # Guard on Windows
+  # gem 'rb-notifu'
+  # gem 'win32console'
+  #
+  # gem 'rb-fchange'
+  # OR
+  # gem 'wdm'
   
 end
 

@@ -34,10 +34,10 @@ header {
     background-color: $main-color;
     background-image: image-url("header-logo.png");
     background-repeat: no-repeat;
-    background-position: 5px top;
+    background-position: 10px top;
     height: $header-height;
     // Image width + background position left + extra space
-    padding-left: 117px + 5px + 10px;
+    padding-left: 26px + 10px + 10px;
     @include page-layout;
     @include shadow;
     h1, h2 {

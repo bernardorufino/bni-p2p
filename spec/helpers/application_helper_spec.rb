@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ApplicationHelper do
 
-  describe "title" do
+  describe "#title" do
   
     context "when view doesn't specify custom title'" do
       subject { helper.title }
@@ -18,7 +18,7 @@ describe ApplicationHelper do
   
   end
 
-  describe "flash_messages" do
+  describe "#flash_messages" do
   
     context "when no flash is set" do
       specify { helper.flash_messages.should be_empty }
@@ -29,10 +29,8 @@ describe ApplicationHelper do
       context "when flash[#{type}] is assigned" do
         before { controller.flash.now[type] = "message" }
         subject { helper.flash_messages.capybara }
-        
         it { should have_selector('.alert', text: "message") }
         it { should have_selector(".alert-#{type}") } unless type == :alert
-              
       end
       
     end
@@ -48,12 +46,21 @@ describe ApplicationHelper do
         subject { helper.flash_messages.capybara }
         it { should have_selector(".alert.alert-#{t1}", text: t1.to_s) }
         it { should have_selector(".alert.alert-#{t2}", text: t2.to_s) }
+    end
     
+    context "when flash[notice] is assigned" do
+      before { controller.flash.now[:notice] = "message" }
+      subject { helper.flash_messages.capybara }
+      it "should mimic success output" do
+        should have_selector('.alert', text: "message")
+        should have_selector('.alert-success')
+      end
+      it { should_not have_selector('.alert-notice') }
     end
    
   end
   
-  describe "icon" do
+  describe "#icon" do
     
     shared_examples "icon" do |icon, opts={}|
       subject { helper.icon(icon, opts[:provide] || {}).capybara }
@@ -94,7 +101,7 @@ describe ApplicationHelper do
   
   end
   
-  describe "icon_text" do
+  describe "#icon_text" do
     
     def self.spec_icon_text(icon, text, attrs={})
       context "when given icon #{icon.inspect} and text #{text.inspect} with attributes #{attrs.inspect}" do
@@ -112,7 +119,7 @@ describe ApplicationHelper do
     
   end
   
-  describe "text_icon" do
+  describe "#text_icon" do
     
     def self.spec_text_icon(icon, text, attrs={})
       context "when given text #{text.inspect} and icon #{icon.inspect} with attributes #{attrs.inspect}" do
@@ -130,28 +137,24 @@ describe ApplicationHelper do
     
   end
   
-  describe "button" do
-  
-    shared_examples "stylized button" do
-      it { should have_selector('button.btn', text: "Sample") }  
-    end
+  describe "#button" do
   
     context "when given only content" do
       subject { helper.button("Sample").capybara }  
-      it_should_behave_like "stylized button"
+      it { should have_selector('button.btn', text: "Sample") }  
     end
     
     # :primary, :info, :success, :warning, :danger, :inverse, :link
     type = :primary; 
     context "when given type and content" do
       subject { helper.button(type, "Sample").capybara }
-      it_should_behave_like "stylized button"
+      it { should have_selector('button.btn', text: "Sample") }  
       it { should have_selector(".btn-#{type}", text: "Sample") }
     end
     
     context "when given content and extra class" do
       subject { helper.button("Sample", class: 'extra-class').capybara }
-      it_should_behave_like "stylized button"
+      it { should have_selector('button.btn', text: "Sample") }  
       it { should have_selector('.extra-class') }
     end
   
@@ -162,13 +165,13 @@ describe ApplicationHelper do
     
     context "when given content and type attribute" do
       subject { helper.button("Sample", type: 'submit').capybara } 
-      it_should_behave_like "stylized button"
+      it { should have_selector('button.btn', text: "Sample") }  
       it { should have_selector('button[type="submit"]') }
     end
   
   end
   
-  describe "button_to" do
+  describe "#button_to" do
   
     context "when given path and content as string" do
       subject { helper.button_to("Content", '/path').capybara }
@@ -187,8 +190,7 @@ describe ApplicationHelper do
   
   end  
 
-  describe "nav" do
-    include Capybara::DSL;
+  describe "#nav" do
     
     let(:current_path) { page_path(:home) }
     before { controller.request.path = current_path }
