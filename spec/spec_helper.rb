@@ -41,7 +41,10 @@ RSpec.configure do |config|
   # Weird bug https://github.com/rspec/rspec-rails/issues/360
   # config.include Capybara::DSL
   # Fixed moving specs from /spec/requests to /spec/features
+  # See http://alindeman.github.com/2012/11/11/rspec-rails-and-capybara-2.0-what-you-need-to-know.html
   
   # Call FactoryGirl methods without repeting FactoryGirl.method(...), just method(...)
   config.include FactoryGirl::Syntax::Methods
+  
+  config.extend RSpecExtensions
 end

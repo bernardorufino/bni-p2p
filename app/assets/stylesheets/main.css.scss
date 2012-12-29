@@ -1,8 +1,10 @@
 $main-color: #97BF0D;
 $middle-color: #719113;
 $dark-color: #5C760A; 
-$page-bg-color: #FFFFFF;
-$text-color: #333333;
+$page-bg-color: #FFF;
+$text-color: #333;
+$gray-bg-color: #F5F5F5;
+$gray-color: #CCC;
 
 // Bootstrap
 $bodyBackground: $middle-color;
@@ -22,6 +24,8 @@ $links: "a, a:link, a:visited, a:hover, a:active";
 @mixin shadow($inset: '') {
   @include box-shadow(#{$inset} 0 0 6px 1px transparentize(#000, 0.70));
 }
+
+/* Structure */
 
 $header-height: 42px;
 header {
@@ -147,5 +151,24 @@ header {
     .controls {
       font-weight: normal;
     }    
+  }
+}
+
+/* General formatting */
+
+.title {
+  padding: 5px 15px;
+  margin: -10px -10px 21px;
+  background-color: $gray-bg-color;
+  border-bottom: 1px solid $gray-color;
+  @include clearfix;
+  h2 {
+    margin: 0;
+    padding: 0;
+    color: darken($gray-color, 30%);
+    font-size: 22px;
+  }
+  .breadcrumb {
+    float: right;
   }
 }

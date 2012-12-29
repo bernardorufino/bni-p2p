@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   
-  subject { build(:user) }
+  subject(:user) { build(:user) }
   
   it { should respond_to(:name) }
   it { should respond_to(:email) }
@@ -10,10 +10,27 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_me) }
   
+  context "when associated with a child" do
+    subject(:user) { build(:user) }
+    before do
+      user.child = Member.new
+      user.child.user = user
+      user.child.save!
+    end
+    it "should destroy without infinity loop" do
+      expect{ user.destroy }.not_to raise_error(SystemStackError)
+    end
+  end
+  
   context "when saving with upcased email" do
     subject { create(:user, email: build_stubbed(:user).email.upcase) }
     its(:email) { should be_downcased }
   end 
+ 
+  context "when setting a child" do
+    before { user.child = build(:member) }
+    specify { user.child.user.should == user }
+  end
   
   describe "validations" do
   
@@ -21,6 +38,16 @@ describe User do
     
     context "when valid" do
       it { should be_valid }
+    end
+    
+    context "when associated with a valid child" do
+      subject { build(:user_with_member) }
+      it { should be_valid }
+    end
+    
+    context "when associated with an invalid child" do
+      subject { build(:user_with_member) }
+      it "shouldn't validate the child"
     end
     
     it { should validate_presence_of(:name) }

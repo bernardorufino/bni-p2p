@@ -38,7 +38,10 @@ module BNIP2P
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    config.i18n.default_locale = :'pt-BR'
+    
+    # Only loading the used ones
+    config.i18n.available_locales = [:en, :'pt-BR']
 
     config.generators do |g|
       # If without options (only g.test_framework :rspec) it's not needed since we're using rspec-rails

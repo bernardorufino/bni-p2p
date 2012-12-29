@@ -1,0 +1,24 @@
+<%= simple_form_for(resource, 
+  :url => user_registration_path, 
+  :defaults => { required: false },
+  :html => { class: 'form-horizontal' }
+) do |f| %>
+
+  <%= f.error_notification %>
+  <%= f.input :name, label: "Nome" %>
+  <%= f.input :email, label: "Email " %>
+  <% unless resource.new_record? %>
+    <%= f.hint "Deixe a senha em branco se não deseja alterá-la. " %>
+  <% end %>
+  <%= f.input :password, label: "Senha" %>
+  <%= f.input :password_confirmation, label: "Confirma senha" %>
+  <% unless resource.new_record? %>
+     <%= f.input :current_password, :hint => "precisamos da sua senha para confirmar as atualizações" %>
+  <% end %>
+  
+  <%= form_controls do %>
+    <%= reset_button "Limpar" %> 
+    <%= submit_button :primary, submit %> 
+  <% end %> 
+
+<% end %>

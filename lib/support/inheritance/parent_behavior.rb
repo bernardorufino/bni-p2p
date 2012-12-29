@@ -10,7 +10,7 @@ module Inheritance::ParentBehavior
     def acts_as_parent(opts={})
       belongs_to(Inheritance.interface(self), {
         polymorphic: true,
-        dependent: :destroy,
+        #dependent: :destroy,
         #autosave: true,
         touch: true,
         #validate: true

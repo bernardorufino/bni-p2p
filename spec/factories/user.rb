@@ -1,3 +1,4 @@
+
 FactoryGirl.define do
 
   factory :user do
@@ -7,7 +8,12 @@ FactoryGirl.define do
     password_confirmation "123456"
     
     factory :user_with_member do
-      association Inheritance.child_of(:user), factory: :member
+      # Problems with :create default strategy, validations on member calling
+      # validations on user which by the time it happens seems not to be valid
+      association Inheritance.child_of(:user), factory: :member, strategy: :build
+    end
+    factory :user_with_lender do
+      association Inheritance.child_of(:user), factory: :lender, strategy: :build
     end
   end
   
@@ -17,8 +23,11 @@ FactoryGirl.define do
     password "123456"
     password_confirmation "123456"
     
-    factory :other_user_with_child do
-      association Inheritance.child_of(:user), factory: :lender
+    factory :other_user_with_member do
+      association Inheritance.child_of(:user), factory: :member, strategy: :build
+    end
+    factory :other_user_with_lender do
+      association Inheritance.child_of(:user), factory: :lender, strategy: :build
     end
   end
   

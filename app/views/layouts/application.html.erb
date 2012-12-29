@@ -12,7 +12,6 @@
 <header>
   <div id="header">
     <h1>BNI P2P</h1>
-    <h2>Emprestar ficou mais facil</h2>
     
     <%= nav(id: 'menu', class: 'unstyled', nav: false) do |m| %>
       <%= m.link_to "Home", root_path %>
@@ -48,7 +47,8 @@
 
 <div id="wrapper">
   <div id="content">
-    
+    <%= content_for :heading if content_for? :heading %>
+  
     <%= flash_messages %>
     
     <%= yield %>

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PagesController do
+describe "pages" do
 
   shared_examples "having page" do |p|
     describe p.to_s do
@@ -12,12 +12,5 @@ describe PagesController do
 
   it_behaves_like "having page", :home  
   
-  describe "home" do
-    before { visit page_path(:home) }
-    subject { page }
-    
-    
-  
-  end
-  
 end
+
