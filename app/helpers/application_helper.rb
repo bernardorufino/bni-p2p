@@ -1,7 +1,6 @@
 module ApplicationHelper
   TITLE = "BNI P2P";
 
-  # TEST!
   def title(title=nil, &block)
     if title
       content_for(:title, title);
@@ -12,24 +11,20 @@ module ApplicationHelper
     (content_for?(:title)) ? "#{content_for(:title)} | #{TITLE}" : TITLE;
   end
   
-  # TEST!
   def form_controls(&block)
     content_tag(:div, class: 'controls-group') do
       content_tag(:div, class: 'controls', &block)      
     end.html_safe
   end
   
-  # TEST!
   def submit_button(*args)
     custom_button({type: 'submit'}, *args)
   end
-  
-  # TEST!
+ 
   def reset_button(*args)
     custom_button({type: 'reset'}, *args)
   end
-
-  # TEST!  
+  
   def custom_button(default_options, *args)
     options = (args.last.is_a?(Hash)) ? args.pop : {};
     options = default_options.merge(options);

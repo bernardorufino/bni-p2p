@@ -1,0 +1,29 @@
+FIXME: Fix user_spec.rb
+  -> When setting a child in an <User> (ie user.child = Member.new), the
+     child's user is not set to <User> (ie user.child.user != user)
+FIXME: Fix users_registration_spec.rb
+  -> Registring user is not creating new User (ie User.count doesn't change)
+TODO: Create more use histories related to the creation of users
+  -> ie Add more tests to users_registration_spec.rb
+TODO: Test helpers
+TODO: Business logic and associations (& specs!)
+  -> Company 1-n Member
+    -> class Member belongs_to :company
+    -> class Company has_many :members
+  -> Lender 1-1 Portfolio
+    -> class Lender has_one :portfolio
+    -> class Portfolio belongs_to :lender
+  -> Portifolio 1-n Loan
+    -> class Loan belongs_to :portfolio
+    -> class Portfolio has_many :loans
+  -> Loan 1-1 Borrower
+    -> class Loan belongs_to :borrower
+    -> class Borrower has_one :loan
+  -> Portfolio 1-n Borrower
+    -> class Portfolio has_many :borrowers, through: :loans
+  -> Lender 1-n Loan
+    -> class Lender has_many :loans, through: :portfolio (?)
+  -> Lender 1-n Borrowers
+    -> class Lender has_many :borrowers, through: :loans
+TODO: Views (& specs!)
+  

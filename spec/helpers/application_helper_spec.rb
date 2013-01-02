@@ -10,10 +10,26 @@ describe ApplicationHelper do
     end
     
     context "when view specifies custom title" do
-      before { view.provide :title, "custom" }
-      subject { helper.title }
-      it { should match(/custom/) }
-      it { should match(ApplicationHelper::TITLE) }    
+      before { helper.title "custom" }
+      
+      it "should set content for :heading" do
+        view.content_for?(:heading).should be_true
+        view.content_for(:heading).should match(/custom/)
+      end    
+      
+      context "when later called without arguments" do
+        subject { helper.title }
+        it { should match(/custom/) }
+        it { should match(ApplicationHelper::TITLE) }    
+      end
+      
+      context "and provides a block with content to be yielded" do
+        before { helper.title("custom"){ '<span id="content">content</span>'.html_safe }.capybara }
+        subject { view.content_for(:heading).capybara }
+        it { should have_content("custom") }
+        it { should have_selector('span#content', text: "content") }
+      end
+      
     end
   
   end
@@ -35,8 +51,6 @@ describe ApplicationHelper do
       
     end
     
-    # In fact, plural flashes, but keepin' it simple, otherwise
-    # we could use Array#combination 4 times
     t1, t2 = :error, :info; # Not :alert
     context "when flash #{t1} and #{t2} are assigned" do
         before do
@@ -252,6 +266,24 @@ describe ApplicationHelper do
         it { should have_selector('ul.menu') }
     end
     
+  end
+  
+  describe "#submit_button" do
+    subject { helper.submit_button "Cadastrar" }
+    it { should have_selector('button[type="submit"]', text: "Cadastrar") }    
+  end
+
+  describe "#reset_button" do
+    subject { helper.reset_button "Limpar" }
+    it { should have_selector('button[type="reset"]', text: "Limpar") }
+  end
+  
+  describe "#form_controls" do
+    subject { helper.form_controls{ "<span>Content</span>".html_safe }.capybara }
+    
+    it { should have_selector('.controls-group') }
+    it { should have_selector('.controls-group .controls') }
+    it { should have_selector('.controls-group .controls span', text: "Content") }  
   end
 
 end
