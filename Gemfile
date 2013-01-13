@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.11'
 
 gem 'jquery-rails'
 gem 'rails-i18n'
 gem 'simple_form', '>= 2.0.4'
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '>= 3.0'
 gem 'bootstrap-sass', '~> 2.2.2.0'
 gem 'devise', '~> 2.1.2'
 gem 'devise-i18n'
@@ -16,7 +16,7 @@ group :development, :test do
   # rspec-rails and factory_girl_rails needs to be in development
   # group also so that Rails generators work
   gem 'rspec-rails', '>= 2.0'
-  gem 'factory_girl_rails', '~> 4.0'
+  gem 'factory_girl_rails', '~> 4.1'
   
 end
 
@@ -34,7 +34,7 @@ end
 
 group :test do 
   gem 'shoulda-matchers', '>= 1.4.2'
-  gem 'capybara', '>= 2.0.1'
+  gem 'capybara', '>= 2.0'
   
   # Guard on MAC OSX
   # gem 'rb-fsevent', require: true
