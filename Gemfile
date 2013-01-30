@@ -7,7 +7,7 @@ gem 'rails-i18n'
 gem 'simple_form', '>= 2.0.4'
 gem 'bcrypt-ruby', '>= 3.0'
 gem 'bootstrap-sass', '~> 2.2.2.0'
-gem 'devise', '~> 2.1.2'
+gem 'devise', '~> 2.2'
 gem 'devise-i18n'
 
 group :development, :test do
